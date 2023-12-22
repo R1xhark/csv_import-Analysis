@@ -45,6 +45,9 @@ class MainWindow(tk.Frame):
 
         button_go = tk.Button(self, text='Go', width=25, command=self.load_csv)
         button_go.pack()
+        
+        button_clear = tk.Button(self, text='Clear',width=25,command=self.output_text.delete)
+        button_clear.pack()
 
         button_exit = tk.Button(self, text='Exit', width=25, command=self.parent.destroy)
         button_exit.pack()
@@ -57,7 +60,7 @@ class MainWindow(tk.Frame):
                 try:
                     if os.path.exists(file_path):
                         analysis = pd.read_csv(file_path)
-                        output_str = str(analysis.head())
+                        output_str = str(analysis.head(n=3))
                         self.output_text.delete(1.0, tk.END)
                         self.output_text.insert(tk.END, output_str)
                 except FileNotFoundError:
